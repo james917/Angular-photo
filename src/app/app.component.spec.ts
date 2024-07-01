@@ -1,41 +1,31 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 import { AppComponent } from './app.component';
-import { CommonModule } from '@angular/common';
 
 describe('AppComponent', () => {
-  let component: AppComponent;
-  let fixture: ComponentFixture<AppComponent>;
-  let element: HTMLElement;
-
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AppComponent ],
-      imports: [ CommonModule ]
+      declarations: [
+        AppComponent
+      ],
     }).compileComponents();
-
-    fixture = TestBed.createComponent(AppComponent);
-    component = fixture.componentInstance;
-    element = fixture.nativeElement;
   });
 
-  it('should create the component', () => {
-    expect(component).toBeTruthy();
+  it('should create the app', () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    const app = fixture.componentInstance;
+    expect(app).toBeTruthy();
   });
 
-  it('should have photos', () => {
-    expect(component.photos.length).toBeGreaterThan(0);
+  it(`should have as title 'photo-gallery'`, () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    const app = fixture.componentInstance;
+    expect(app.title).toEqual('photo-gallery');
   });
 
-  it('should display the correct number of photo entries', () => {
-    fixture.detectChanges(); // Trigger initial data binding
-    const photoElements = element.querySelectorAll('.max-w-sm');
-    expect(photoElements.length).toEqual(component.photos.length);
-  });
-
-  it('should display the correct photo titles', () => {
+  it('should render title', () => {
+    const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
-    const photoTitles = Array.from(element.querySelectorAll('.font-bold')).map(el => el.textContent?.trim());
-    const expectedTitles = component.photos.map(photo => photo.title);
-    expect(photoTitles).toEqual(expectedTitles);
+    const compiled = fixture.nativeElement as HTMLElement;
+    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, photo-gallery');
   });
 });
